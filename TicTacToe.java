@@ -7,12 +7,74 @@ public class TicTacToe {
         System.out.println("\nEnter 1 For MultiPlayer");
         System.out.println("Enter 2 To Play With Computer");
         System.out.println("Enter 0 To Quit\n");
-        System.out.print("How Do You Wish To Play : ");
+        System.out.print("choice : ");
       
         int mode = scan.nextInt();
         Board board = new Board();
         while (mode != 0) {
-            if (mode == 1) {
+            if (mode == 2) {
+                System.out.println("\nPlayer Is X And Computer is O");
+                board.Print();
+
+                int pos;
+                int count = 0;
+
+                while (board.Winner() == 0) {
+                    if (count % 2 == 0) {
+                        // If even then Player makes a move
+                        System.out.print("\nChoose Position : ");
+                        pos = scan.nextInt();
+
+                        while (pos > 9 || pos < 1) {
+                            // Invalid Position error
+                            System.out.print("\nChoose Valid Position : ");
+                            pos = scan.nextInt();
+                        }
+
+                        while (board.Check(pos) == 0) {
+                            // Occupied position error
+                            System.out.print("\nChoose  Unoccupied Position : ");
+                            pos = scan.nextInt();
+
+                            while (pos > 9 || pos < 1) {
+                                System.out.print("\nChoose Valid Position : ");
+                                pos = scan.nextInt();
+                            }
+                        }
+
+                        board.UpdateBoard(pos, 1);
+                    } else {
+                        pos = board.Computer();
+                        System.out.println("\nComputer Chose Position : " + pos);
+                    }
+                    board.DisplayBoard();
+
+                    count++;
+
+                    if (board.Winner() == 1) {
+                        System.out.println("\nHurray, You Won !!");
+                        break;
+                    } else if (board.Winner() == -1) {
+                        System.out.println("\nComputer Won !!");
+                        break;
+                    }
+                    if (count == 9) {
+                        // Game Draws when count becomes 9 and no body has won in this turn
+                        System.out.println("\nDraw !!");
+                        break;
+                    }
+                }
+                board.Clear();
+
+                // Asking for another Player vs Computer game
+                System.out.print("\nWant to play with computer again? : ");
+                char another = scan.next().charAt(0);
+
+                if (another == 'Y' || another == 'y') {
+                    continue;
+                }
+            }
+            else if (mode == 1) {
                 // PLayer vs Player Mode
                 System.out.println("\nPlayer 1 Is X And Player 2 is O");
                 board.Print();
@@ -21,46 +83,47 @@ public class TicTacToe {
                 int count = 0;
 
                 while (board.Winner() == 0) {
+                    
                     if (count % 2 == 0) {
                         // If even then Player 1 makes a move
-                        System.out.print("\nPlayer 1 Choose A Position : ");
+                        System.out.print("\nPlayer 1 Choose  Position : ");
                         pos = scan.nextInt();
 
                         while (pos > 9 || pos < 1) {
                             // Invalid positions error
-                            System.out.print("\nChoose A Valid Position : ");
+                            System.out.print("\nChoose  Valid Position : ");
                             pos = scan.nextInt();
                         }
 
                         while (board.Check(pos) == 0) {
                             // Occupied Postion error
-                            System.out.print("\nChoose An Unoccupied Position : ");
+                            System.out.print("\nChoose  Unoccupied Position : ");
                             pos = scan.nextInt();
 
                             while (pos > 9 || pos < 1) {
-                                System.out.print("\nChoose A Valid Position : ");
+                                System.out.print("\nChoose Valid Position : ");
                                 pos = scan.nextInt();
                             }
                         }
                         board.UpdateBoard(pos, 1);
                     } else {
                         // If odd then Player 2 makes a move
-                        System.out.print("\nPlayer 2 Choose A Position : ");
+                        System.out.print("\nPlayer 2 Choose Position : ");
                         pos = scan.nextInt();
 
                         while (pos > 9 || pos < 1) {
                             // Invalid positions error
-                            System.out.print("\nChoose A Valid Position : ");
+                            System.out.print("\nChoose Valid Position : ");
                             pos = scan.nextInt();
                         }
 
                         while (board.Check(pos) == 0) {
                             // Occupied Postion error
-                            System.out.print("\nChoose An Unoccupied Position : ");
+                            System.out.print("\nChoose Unoccupied Position : ");
                             pos = scan.nextInt();
 
                             while (pos > 9 || pos < 1) {
-                                System.out.print("\nChoose A Valid Position : ");
+                                System.out.print("\nChoose Valid Position : ");
                                 pos = scan.nextInt();
                             }
                         }
@@ -71,100 +134,35 @@ public class TicTacToe {
                     count++;
 
                     if (board.Winner() == 1) {
-                        System.out.println("\nHurray, Player 1 Won The Game !!");
+                        System.out.println("\nPlayer 1 Won !!");
                         break;
                     } else if (board.Winner() == -1) {
-                        System.out.println("\nHurray, Player 2 Won The Game !!");
+                        System.out.println("\n Player 2 Won !!");
                         break;
                     }
                     if (count == 9) {
                         // Game Draws when count becomes 9 and no body has won in this turn
-                        System.out.println("\nOops, The Game Ends With A Draw !!");
+                        System.out.println("\nDraw!!");
                         break;
                     }
                 }
                 board.Clear();
 
                 // Asking for another Player vs Player game
-                System.out.print("\nWant Another Multiplayer Game Then Press y/Y Else Press Anything : ");
+                System.out.print("\nWant to play multiplayer game again? : ");
                 char another = scan.next().charAt(0);
 
                 if (another == 'Y' || another == 'y') {
                     continue;
                 }
-            } else if (mode == 2) {
-                System.out.println("\nPlayer Is X And Computer is O");
-                board.Print();
-
-                int pos;
-                int count = 0;
-
-                while (board.Winner() == 0) {
-                    if (count % 2 == 0) {
-                        // If even then Player makes a move
-                        System.out.print("\nChoose A Position : ");
-                        pos = scan.nextInt();
-
-                        while (pos > 9 || pos < 1) {
-                            // Invalid Position error
-                            System.out.print("\nChoose A Valid Position : ");
-                            pos = scan.nextInt();
-                        }
-
-                        while (board.Check(pos) == 0) {
-                            // Occupied position error
-                            System.out.print("\nChoose An Unoccupied Position : ");
-                            pos = scan.nextInt();
-
-                            while (pos > 9 || pos < 1) {
-                                System.out.print("\nChoose A Valid Position : ");
-                                pos = scan.nextInt();
-                            }
-                        }
-
-                        board.UpdateBoard(pos, 1);
-                    } else {
-                        // Generating a move for Computer by Computer() function
-                        pos = board.Computer();
-                        System.out.println("\nComputer Chose Position : " + pos);
-                    }
-                    board.DisplayBoard();
-
-                    count++;
-
-                    if (board.Winner() == 1) {
-                        System.out.println("\nHurray, You Defeated The Computer !!");
-                        break;
-                    } else if (board.Winner() == -1) {
-                        System.out.println("\nHell, AI Took Over And Won The Game !!");
-                        break;
-                    }
-                    if (count == 9) {
-                        // Game Draws when count becomes 9 and no body has won in this turn
-                        System.out.println("\nOops, The Game Ends With A Draw !!");
-                        break;
-                    }
-                }
-                board.Clear();
-
-                // Asking for another Player vs Computer game
-                System.out.print("\nWant Another Game With Computer Then Press y/Y Else Press Anything : ");
-                char another = scan.next().charAt(0);
-
-                if (another == 'Y' || another == 'y') {
-                    continue;
-                }
-            } else {
-                // Invalid mode error
-                System.out.println("Sorry, Unknown Command !!");
-                System.out.print("Please Select The Mode Again : ");
             }
+            
 
             // Asking the mode again
             System.out.println("\nEnter 1 For MultiPlayer");
             System.out.println("Enter 2 To Play With Computer");
             System.out.println("Enter 0 To Quit\n");
-            System.out.print("How Do You Wish To Play : ");
+            System.out.print("choice: ");
             mode = scan.nextInt();
         }
 
