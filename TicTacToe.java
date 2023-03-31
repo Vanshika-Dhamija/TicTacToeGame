@@ -14,5 +14,6 @@ public class TicTacToe {
       
         int mode = scan.nextInt();
         Board board = new Board();
+        //write from here
     }
 }
